@@ -3,33 +3,25 @@
     <div class="row">
       <div class="col-12">
         <form @submit.prevent="onSubmit">
-          <div class="form-group">
-            <label for="firstName">First Name:</label>
-            <input
-              type="text"
-              id="firstName"
-              class="form-control"
-              v-model="form.firstName"
-            />
-          </div>
-          <div class="form-group">
-            <label for="lastName">Last Name:</label>
-            <input
-              type="text"
-              id="lastName"
-              class="form-control"
-              v-model="form.lastName"
-            />
-          </div>
-          <div class="form-group">
-            <label for="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              class="form-control"
-              v-model="form.email"
-            />
-          </div>
+          <BaseInput
+            id="firstName"
+            label="First Name"
+            type="text"
+            v-model="form.firstName"
+          />
+          <BaseInput
+            id="lastName"
+            type="text"
+            label="Last Name"
+            v-model="form.lastName"
+          />
+          <BaseInput
+            id="email"
+            label="Email"
+            type="email"
+            v-model="form.email"
+          />
+
           <div class="form-group mt-4">
             <button
               type="submit"
@@ -48,8 +40,12 @@
 
 <script>
 import axios from 'axios';
+import BaseInput from './components/BaseInput.vue';
 export default {
   name: 'App',
+  components: {
+    BaseInput,
+  },
   data() {
     return {
       form: {
