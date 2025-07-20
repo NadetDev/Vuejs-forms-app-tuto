@@ -6,6 +6,7 @@
       :type="type"
       :value="value"
       @input="$emit('input', $event.target.value)"
+      v-mask="mask"
       class="form-control"
     />
   </div>
@@ -32,6 +33,10 @@ export default {
     value: {
       type: String,
       required: true,
+    },
+    mask: {
+      type: String,
+      required: false,
     },
   },
 };

@@ -8,12 +8,23 @@
             label="First Name"
             v-model="form.firstName"
           />
-          <base-input id="lastName" label="Last Name" v-model="form.lastName" />
+          <base-input
+            id="lastName"
+            type="text"
+            label="Last Name"
+            v-model="form.lastName"
+          />
           <base-input
             id="email"
             label="Email"
             type="email"
             v-model="form.email"
+          />
+          <base-input
+            id="telephone"
+            label="Telephone"
+            v-model="form.telephone"
+            :mask="telephoneMask"
           />
           <base-select
             id="occupation"
@@ -54,8 +65,10 @@ export default {
         firstName: '',
         lastName: '',
         email: '',
+        telephone: '',
         occupation: 'tester',
       },
+      telephoneMask: '(+##) ## ## ## ## ##',
       optionsOfSelect: [
         { label: 'Software developer', value: 'dev' },
         { label: 'Product Manager', value: 'PO' },
