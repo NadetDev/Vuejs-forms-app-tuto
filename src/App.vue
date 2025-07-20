@@ -31,7 +31,14 @@
             />
           </div>
           <div class="form-group mt-4">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button
+              type="submit"
+              :disabled="!formIsValid"
+              @click.prevent="onSubmit"
+              class="btn btn-primary"
+            >
+              Submit
+            </button>
           </div>
         </form>
       </div>
@@ -40,6 +47,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'App',
   data() {
@@ -54,7 +62,14 @@ export default {
   methods: {
     onSubmit() {
       if (!this.formIsValid) return;
-      console.log('form send');
+      axios
+        .post('http://localhost:3000/users', this.form)
+        .then((response) => {
+          console.log('Form has been posted', response);
+        })
+        .catch((error) => {
+          console.log('An error occured', error);
+        });
     },
   },
   computed: {
