@@ -12,6 +12,7 @@
 </template>
 <script>
 export default {
+  name: 'base-input',
   props: {
     label: {
       type: String,

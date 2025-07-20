@@ -3,23 +3,23 @@
     <div class="row">
       <div class="col-12">
         <form @submit.prevent="onSubmit">
-          <BaseInput
+          <base-input
             id="firstName"
             label="First Name"
-            type="text"
             v-model="form.firstName"
           />
-          <BaseInput
-            id="lastName"
-            type="text"
-            label="Last Name"
-            v-model="form.lastName"
-          />
-          <BaseInput
+          <base-input id="lastName" label="Last Name" v-model="form.lastName" />
+          <base-input
             id="email"
             label="Email"
             type="email"
             v-model="form.email"
+          />
+          <base-select
+            id="occupation"
+            label="Occupation"
+            :options="optionsOfSelect"
+            v-model="form.occupation"
           />
 
           <div class="form-group mt-4">
@@ -41,10 +41,12 @@
 <script>
 import axios from 'axios';
 import BaseInput from './components/BaseInput.vue';
+import BaseSelect from './components/BaseSelect.vue';
 export default {
   name: 'App',
   components: {
     BaseInput,
+    BaseSelect,
   },
   data() {
     return {
@@ -52,7 +54,15 @@ export default {
         firstName: '',
         lastName: '',
         email: '',
+        occupation: 'tester',
       },
+      optionsOfSelect: [
+        { label: 'Software developer', value: 'dev' },
+        { label: 'Product Manager', value: 'PO' },
+        { label: 'DevOps', value: 'devops' },
+        { label: 'Tester', value: 'tester' },
+        { label: 'UI/UX designer', value: 'ui-ux' },
+      ],
     };
   },
   methods: {
