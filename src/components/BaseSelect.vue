@@ -1,7 +1,14 @@
 <template>
   <div class="form-group">
     <label :for="id">{{ label }}</label>
-    <select class="form-control" @change="$emit('input', $event.target.value)">
+    <select
+      class="form-control"
+      @change="$emit('input', $event.target.value)"
+      :class="{
+        'is-valid': validator && !validator.$error,
+        'is-invalid': validator && validator.$error,
+      }"
+    >
       <option
         v-for="option in options"
         :key="option.value"
@@ -36,6 +43,13 @@ export default {
     value: {
       type: String,
       required: true,
+    },
+    validator: {
+      type: Object,
+      required: false,
+      validator($v) {
+        return Object.prototype.hasOwnProperty.call($v, '$model');
+      },
     },
   },
 };

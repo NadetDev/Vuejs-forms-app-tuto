@@ -8,6 +8,10 @@
       @input="$emit('input', $event.target.value)"
       v-mask="mask"
       class="form-control"
+      :class="{
+        'is-valid': validator && !validator.$error && validator.$dirty,
+        'is-invalid': validator && validator.$error,
+      }"
     />
   </div>
 </template>
@@ -37,6 +41,13 @@ export default {
     mask: {
       type: String,
       required: false,
+    },
+    validator: {
+      type: Object,
+      required: false,
+      validator($v) {
+        return Object.prototype.hasOwnProperty.call($v, '$model');
+      },
     },
   },
 };
