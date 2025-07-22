@@ -7,34 +7,39 @@
           <base-input
             id="firstName"
             label="First Name"
-            v-model="$v.form.firstName.$model"
+            :value="$store.state.user.firstName"
+            @input="updateUser('firstName', $event)"
             :validator="$v.form.firstName"
           />
           <base-input
             id="lastName"
             type="text"
             label="Last Name"
-            v-model="$v.form.lastName.$model"
+            :value="$store.state.user.lastName"
+            @input="updateUser('lastName', $event)"
             :validator="$v.form.lastName"
           />
           <base-input
             id="email"
             label="Email"
             type="email"
-            v-model="$v.form.email.$model"
+            :value="$store.state.user.email"
+            @input="updateUser('email', $event)"
             :validator="$v.form.email"
           />
           <base-input
             id="telephone"
             label="Telephone"
-            v-model="$v.form.telephone.$model"
+            :value="$store.state.user.telephone"
+            @input="updateUser('telephone', $event)"
             :validator="$v.form.telephone"
             :mask="telephoneMask"
           />
           <base-input
             id="website"
             label="Website"
-            v-model="$v.form.website.$model"
+            :value="$store.state.user.website"
+            @input="updateUser('website', $event)"
             :validator="$v.form.website"
           />
 
@@ -42,7 +47,8 @@
             id="occupation"
             label="Occupation"
             :options="optionsOfSelect"
-            v-model="$v.form.occupation.$model"
+            :value="$store.state.user.occupation"
+            @input="updateUser('occupation', $event)"
             :validator="$v.form.occupation"
           />
 
@@ -68,6 +74,7 @@ import AppHeader from './components/AppHeader.vue';
 import BaseInput from './components/BaseInput.vue';
 import BaseSelect from './components/BaseSelect.vue';
 import { url, alpha, email, required } from 'vuelidate/lib/validators';
+import { mapState } from 'vuex';
 
 export default {
   name: 'App',
@@ -78,14 +85,6 @@ export default {
   },
   data() {
     return {
-      form: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        telephone: '',
-        occupation: '',
-        website: '',
-      },
       telephoneMask: '(+##) ## ## ## ## ##',
       optionsOfSelect: [
         { label: '', value: '' },
@@ -126,8 +125,17 @@ export default {
           console.log('An error occured', error);
         });
     },
+    updateUser(property, value) {
+      this.$store.dispatch('updateUserData', {
+        property,
+        value,
+      });
+      this.$v.form[property].$touch();
+    },
   },
-  computed: {},
+  computed: {
+    ...mapState({ form: 'user' }),
+  },
   created() {
     this.$store.dispatch('getLoggedInUser', this.demoUserId);
   },

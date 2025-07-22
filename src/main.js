@@ -26,8 +26,8 @@ const useStore = new Vuex.Store({
     },
   },
   mutations: {
-    updateUser(state, user) {
-      state.user = user;
+    updateUser(state, newUserData) {
+      state.user = newUserData;
     },
   },
   actions: {
@@ -39,6 +39,11 @@ const useStore = new Vuex.Store({
           }
         });
       }
+    },
+    updateUserData(context, payload) {
+      const existingUserData = { ...context.state.user };
+      existingUserData[payload.property] = payload.value;
+      context.commit('updateUser', existingUserData);
     },
   },
 });
