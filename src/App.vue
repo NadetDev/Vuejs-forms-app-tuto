@@ -111,6 +111,8 @@ export default {
   },
   methods: {
     onSubmit() {
+      this.$v.$touch();
+      if (this.$v.$invalid) return;
       axios
         .post('http://localhost:3000/users', this.form)
         .then((response) => {
