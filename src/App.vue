@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="container py-4">
+    <app-header />
     <div class="row">
       <div class="col-12">
         <form>
@@ -63,6 +64,7 @@
 
 <script>
 import axios from 'axios';
+import AppHeader from './components/AppHeader.vue';
 import BaseInput from './components/BaseInput.vue';
 import BaseSelect from './components/BaseSelect.vue';
 import { url, alpha, email, required } from 'vuelidate/lib/validators';
@@ -70,6 +72,7 @@ import { url, alpha, email, required } from 'vuelidate/lib/validators';
 export default {
   name: 'App',
   components: {
+    AppHeader,
     BaseInput,
     BaseSelect,
   },
@@ -92,6 +95,7 @@ export default {
         { label: 'Tester', value: 'tester' },
         { label: 'UI/UX designer', value: 'ui-ux' },
       ],
+      demoUserId: '6e2a',
     };
   },
   validations: {
@@ -124,6 +128,9 @@ export default {
     },
   },
   computed: {},
+  created() {
+    this.$store.dispatch('getLoggedInUser', this.demoUserId);
+  },
 };
 </script>
 
